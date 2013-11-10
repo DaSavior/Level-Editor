@@ -1,11 +1,4 @@
 #include "gameObject.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
-#include <vector>
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
 
 void gameObject::setState(int newState)
 {
