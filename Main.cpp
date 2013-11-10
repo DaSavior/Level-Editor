@@ -16,6 +16,23 @@ int main()
 			switch (event.type)
 			{
 			case sf::Event::MouseButtonPressed:
+			    mouse_pos = sf::Mouse:GetMousePosition();
+			    if(new_object1.contains(mouse_pos))
+                {
+
+                }
+                else if (delete_object.contains(mouse_pos))
+                {
+
+                }
+                else if (save_room.contains(mouse_pos))
+                {
+
+                }
+                else if (load_room.contains(mouse_pos))
+                {
+
+                }
 				break;
 			case sf::Event::TextEntered:
 				break;
