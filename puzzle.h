@@ -1,13 +1,21 @@
+#include "circuit.h"
+#include "doorObject.h"
+#include <vector>
+
 #ifndef PUZZLE_H
 #define PUZZLE_H
-
-#include "circuit.h"
 
 class puzzle
 {
 public:
-	void loadFromFile(std::istream&);
+	puzzle(void);
+	~puzzle(void);
+	void loadFromFile(void);
+	bool interact(void);
+	void draw(void);
 private:
+	std::vector<circuit> circuits;
+	std::vector<doorObject> doors;
 };
 
 #endif
