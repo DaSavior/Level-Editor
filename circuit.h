@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include "gameObject.h"
 #include <vector>
-#include "gameObject.h"
 
 class circuit
 {
@@ -19,6 +18,10 @@ public:
 	void pullLever();
 	int getLever();
 
+	bool intersects(sf::IntRect);
+	bool intersectsPlug(sf::IntRect);
+	bool intersectsLever(sf::IntRect);
+
 	virtual void draw (sf::RenderTarget &target, sf::RenderStates states) const =0;
 	void loadFromFile();
 
@@ -27,9 +30,9 @@ private:
 	int circuit_from[2];//0 = player
 	gameObject Plug;
 
-	std::vector<gameObject> bulbs;
+	std::vector<gameObject> Bulbs;
 
-	gameObject lever;
+	gameObject Lever;
 	int circuit_number;
 }
 

@@ -5,45 +5,49 @@ bool circuit::setEnergy(int set)
 	if (set > maxEnergy())
 		return false;
 	int x = 0;
-	for (int c = bulbs.size()-1; c >= 0; c--)
+	for (int c = Bulbs.size()-1; c >= 0; c--)
 	{
 		x = std::pow(2, c);
 		if (x >= set)
 		{
 			set -= x;
-			bulbs[c].setState(1);
-			bulbs[c].setFrame(1, 0);
+			Bulbs[c].setState(1);
+			Bulbs[c].setFrame(1, 0);
 		}
 		else
 		{
-			bulbs[c].setState(0);
-			bulbs[c].setFrame(0, 0);
+			Bulbs[c].setState(0);
+			Bulbs[c].setFrame(0, 0);
 		}
 	}
 }
 bool circuit::addEnergy(int plus)
 {
+	if (Lever.getState() != 0)
+		return false;
 	plus += getEnergy();
 	return setEnergy(plus);
 }
 bool circuit::removeEnergy(int minus)
 {
+	if (Lever.getState() != 0)
+		return false;
 	minus = getEnergy() - minus;
 	return setEnergy(minus);
 }
 int circuit::getEnergy()
 {
 	int total = 0;
-	for (int c = 0; c < bulbs.size(); c++)
+	for (int c = 0; c < Bulbs.size(); c++)
 	{
-		if (bulbs[c].getState == 1)
+		if (Bulbs[c].getState == 1)
 			total += std::pow(2, c);
 	}
 	return total;
 }
 int circuit::maxEnergy()
 {
-	return (pow(2, bulbs.size())-1);
+	return (pow(2, Bulbs.size())-1);
 }
 int circuit::spaceRemaining()
 {
@@ -52,25 +56,48 @@ int circuit::spaceRemaining()
 
 void circuit::pullLever()
 {
-	switch (lever.getState())
+	switch (Lever.getState())
 	{
 	case -1:
-		lever.setState(0);
-		lever.setFrame(0,0);
+		Lever.setState(0);
+		Lever.setFrame(0,0);
 		break;
 	case 0:
-		lever.setState(1);
-		lever.setFrame(1,0);
+		Lever.setState(1);
+		Lever.setFrame(1,0);
 		break;
 	case 1:
-		lever.setState(-1);
-		lever.setFrame(2,0);
+		Lever.setState(-1);
+		Lever.setFrame(2,0);
 		break;
 	}
 }
 int circuit::getLever()
 {
-	return lever.getState();
+	return Lever.getState();
+}
+
+bool circuit::intersects(sf::IntRect rect)
+{
+	if (intersectsPlug(rect))
+		return true;
+	if (intersectsLever(rect))
+		return true;
+	for (int c = 0; c < Bulbs.size(); c++)
+		if (Bulbs[c].intersects(rect))
+			return true;
+
+	return false;
+}
+bool circuit::intersectsPlug(sf::IntRect rect)
+{
+	if (Plug.intersects(rect))
+		return true;
+}
+bool circuit::intersectsLever(sf::IntRect rect)
+{
+	if (Lever.intersects(rect))
+		return true;
 }
 
 void circuit::draw (sf::RenderTarget &target, sf::RenderStates states) const
@@ -78,10 +105,10 @@ void circuit::draw (sf::RenderTarget &target, sf::RenderStates states) const
 	if (Plug.getState() != 0)
 		target.draw(Plug, states);
 	if (Plug.getState() != 2)
-		target.draw(lever, states);
+		target.draw(Lever, states);
 
-	for (int c = 0; c < bulbs.size(); c++)
-		target.draw(bulbs[c], states);
+	for (int c = 0; c < Bulbs.size(); c++)
+		target.draw(Bulbs[c], states);
 }
 void circuit::loadFromFile()
 {
