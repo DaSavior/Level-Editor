@@ -2,21 +2,10 @@
 
 bool circuit::setEnergy(int set)
 {
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-}
-bool circuit::addEnergy(int);
-=======
-<<<<<<< HEAD
-
-}
-bool circuit::addEnergy(int);
-=======
 	if (set > maxEnergy())
 		return false;
 	int x = 0;
-	for (int c = bulbs.size(); c >= 0; c--)
+	for (int c = bulbs.size()-1; c >= 0; c--)
 	{
 		x = std::pow(2, c);
 		if (x >= set)
@@ -32,55 +21,54 @@ bool circuit::addEnergy(int);
 		}
 	}
 }
-bool circuit::addEnergy(int add)
+bool circuit::addEnergy(int plus)
 {
-	add += getEnergy();
-	return setEnergy(add);
+	plus += getEnergy();
+	return setEnergy(plus);
 }
->>>>>>> origin/Vlad
->>>>>>> origin/master
-bool circuit::removeEnergy(int);
-int circuit::getEnergy();
-int circuit::maxEnergy();
-int circuit::spaceRemaining();
-
-=======
+bool circuit::removeEnergy(int minus)
+{
+	minus = getEnergy() - minus;
+	return setEnergy(minus);
 }
-bool circuit::addEnergy(int);
-=======
-	if (set > maxEnergy())
-		return false;
-	int x = 0;
-	for (int c = bulbs.size(); c >= 0; c--)
+int circuit::getEnergy()
+{
+	int total = 0;
+	for (int c = 0; c < bulbs.size(); c++)
 	{
-		x = std::pow(2, c);
-		if (x >= set)
-		{
-			set -= x;
-			bulbs[c].setState(1);
-			bulbs[c].setFrame(1, 0);
-		}
-		else
-		{
-			bulbs[c].setState(0);
-			bulbs[c].setFrame(0, 0);
-		}
+		if (bulbs[c].getState == 1)
+			total += std::pow(2, c);
+	}
+	return total;
+}
+int circuit::maxEnergy()
+{
+	return (pow(2, bulbs.size())-1);
+}
+int circuit::spaceRemaining()
+{
+	return (maxEnergy() - getEnergy());
+}
+
+void circuit::pullLever()
+{
+	switch (lever.getState())
+	{
+	case -1:
+		lever.setState(0);
+		break;
+	case 0:
+		lever.setState(1);
+		break;
+	case 1:
+		lever.setState(-1);
+		break;
 	}
 }
-bool circuit::addEnergy(int add)
+int circuit::getLever()
 {
-	add += getEnergy();
-	return setEnergy(add);
-}
->>>>>>> origin/Vlad
-bool circuit::removeEnergy(int);
-int circuit::getEnergy();
-int circuit::maxEnergy();
-int circuit::spaceRemaining();
 
->>>>>>> origin/master
-void circuit::pullLever();
-int circuit::getLever();
+}
 
 void circuit::draw (sf::RenderTarget &target, sf::RenderStates states) const =0;
 void circuit::loadFromFile();

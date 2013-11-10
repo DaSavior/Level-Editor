@@ -23,50 +23,7 @@ public:
 	bool collides() const;
 	bool interacts() const;
 	bool intersects(const gameObject&) const;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> origin/Micah
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-	bool intersects(const IntRect&) const;
-=======
 	bool intersects(const sf::IntRect&) const;
->>>>>>> origin/Vlad
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	bool intersects(const sf::IntRect&) const;
->>>>>>> origin/master
-=======
-	bool intersects(const sf::IntRect&) const;
->>>>>>> origin/master
-=======
-	bool intersects(const sf::IntRect&) const;
->>>>>>> origin/master
-=======
-	bool intersects(const sf::IntRect&) const;
->>>>>>> origin/Vlad
-=======
-	bool intersects(const sf::IntRect&) const;
->>>>>>> origin/master
-=======
-	bool intersects(const sf::IntRect&) const;
->>>>>>> origin/master
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
 
 	void setFrameSize(float, float);
 	void setFrameSize(sf::Vector2f);
