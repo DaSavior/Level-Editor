@@ -56,19 +56,34 @@ void circuit::pullLever()
 	{
 	case -1:
 		lever.setState(0);
+		lever.setFrame(0,0);
 		break;
 	case 0:
 		lever.setState(1);
+		lever.setFrame(1,0);
 		break;
 	case 1:
 		lever.setState(-1);
+		lever.setFrame(2,0);
 		break;
 	}
 }
 int circuit::getLever()
 {
-
+	return lever.getState();
 }
 
-void circuit::draw (sf::RenderTarget &target, sf::RenderStates states) const =0;
-void circuit::loadFromFile();
+void circuit::draw (sf::RenderTarget &target, sf::RenderStates states) const
+{
+	if (Plug.getState() != 0)
+		target.draw(Plug, states);
+	if (Plug.getState() != 2)
+		target.draw(lever, states);
+
+	for (int c = 0; c < bulbs.size(); c++)
+		target.draw(bulbs[c], states);
+}
+void circuit::loadFromFile()
+{
+	return;	//needs to be written
+}
